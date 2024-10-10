@@ -3,8 +3,8 @@ import axios from 'axios';
 const connectorHelper = async (
   url: string,
   method: string = 'GET',
-  body: object,
-  headers: object
+  body?: object,
+  headers?: object
 ): Promise<object> => {
   let data: object;
 
