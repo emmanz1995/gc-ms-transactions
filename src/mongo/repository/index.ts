@@ -1,1 +1,1 @@
-export { default as TransactionBulkOps } from './bulkOps';
+export { default as InstitutionsBulkOps } from './bulkOps';

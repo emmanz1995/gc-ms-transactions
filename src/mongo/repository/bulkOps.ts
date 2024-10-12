@@ -1,22 +1,22 @@
-export default (Model: any) => async (transactions: any[]) => {
-  const bulkOps = transactions.map(transaction => ({
+export default (Model: any) => async (institutions: any[]) => {
+  const bulkOps = institutions.map(institution => ({
     updateOne: {
-      filter: { _id: transaction.transactionId },
-      update: { $set: transaction },
+      filter: { _id: institution.id },
+      update: { $set: institution },
       upsert: true,
     },
   }));
 
-  let bulkingTransaction;
+  let bulkingInstitution;
   try {
-    bulkingTransaction = await Model.bulkWrite(bulkOps);
+    bulkingInstitution = await Model.bulkWrite(bulkOps);
 
-    console.log(`Matched: ${bulkingTransaction.matchedCount}`);
-    console.log(`Modified: ${bulkingTransaction.modifiedCount}`);
-    console.log(`Inserted: ${bulkingTransaction.upsertedCount}`);
+    console.log(`Matched: ${bulkingInstitution.matchedCount}`);
+    console.log(`Modified: ${bulkingInstitution.modifiedCount}`);
+    console.log(`Inserted: ${bulkingInstitution.upsertedCount}`);
   } catch (err) {
     console.error('Error during bulkWrite operation:', err);
   }
 
-  return bulkingTransaction;
+  return bulkingInstitution;
 };

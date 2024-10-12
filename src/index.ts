@@ -16,7 +16,7 @@ const origins: object = {
 app.use(cors(origins));
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('<h1>Welcome to transactions service</h1>');
+  res.send('<h1>Welcome to institutions service</h1>');
 });
 
 const { PORT } = process.env;

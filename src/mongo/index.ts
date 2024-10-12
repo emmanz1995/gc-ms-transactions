@@ -1,8 +1,8 @@
-import { TransactionBulkOps as BulkOps } from './repository';
-import { transactions } from './transaction.model';
+import { InstitutionsBulkOps as BulkOps } from './repository';
+import { institutions } from './institutions.model';
 
-const TransactionBulkOps = BulkOps(transactions);
+const institutionsBulkOps = BulkOps(institutions);
 
-export const transactionModel = {
-  TransactionBulkOps,
+export const institutionsRepository = {
+  institutionsBulkOps,
 };
