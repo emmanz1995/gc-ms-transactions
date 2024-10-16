@@ -3,6 +3,7 @@ import 'express-async-errors';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { mongoSetup } from './mongo/setup';
+import institutionRouter from './api/institutions/router';
 
 dotenv.config();
 const app: Application = express();
@@ -18,6 +19,8 @@ app.use(cors(origins));
 app.get('/', (req: Request, res: Response) => {
   res.send('<h1>Welcome to institutions service</h1>');
 });
+
+app.use('/api/v1/institutions', institutionRouter);
 
 const { PORT } = process.env;
 
