@@ -15,6 +15,8 @@ const origins: object = {
 };
 
 app.use(cors(origins));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req: Request, res: Response) => {
   res.send('<h1>Welcome to institutions service</h1>');
