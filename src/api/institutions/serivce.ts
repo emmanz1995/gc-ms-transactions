@@ -21,7 +21,16 @@ class InstitutionsDBStore {
     }
   }
 
-  async institutionsMappings() {}
+  async institutionsMappings(): Promise<object> {
+    let response: object
+    try {
+      response = await this.institutions.getList();
+    } catch(err) {
+      throw err;
+    }
+
+    return response;
+  }
   async getInstitutionById() {}
 }
 

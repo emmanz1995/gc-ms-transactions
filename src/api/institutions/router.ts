@@ -13,11 +13,19 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     res.status(202).send({ message: 'Institutions successfully Synced' });
   } catch (err: any) {
     console.log(err.message);
-    next(err);
+    // next(err);
+    res.status(500).json({ msg: err.message });
   }
 });
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {});
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const response = await service.institutionsMappings()
+    res.status(200).send({ response, message: 'Institutions successfully fetched' });
+  } catch(err: any) {
+    res.status(500).json({ msg: err.message });
+  }
+});
 
 router.get('/:id', (req: Request, res: Response, next: NextFunction) => {});
 
