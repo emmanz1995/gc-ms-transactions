@@ -3,7 +3,7 @@ import 'express-async-errors';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { mongoSetup } from './mongo/setup';
-import institutionRouter from './api/institutions/router';
+import { institutionRouter } from './api/institutions';
 import { ErrorHandler } from './middleware';
 
 dotenv.config();
