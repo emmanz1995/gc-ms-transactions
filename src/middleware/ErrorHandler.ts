@@ -15,7 +15,7 @@ export default (
   error.msg = err.message;
 
   const code = getErrorCode(err);
-  return res.status(code.statusCode).send({ msg: error.msg, code: code.eCode });
+  return res.status(code.statusCode ?? 500).send({ msg: error.msg, code: code.eCode });
 };
 
 const getErrorCode = (err: Error) => {
