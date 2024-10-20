@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { mongoSetup } from './mongo/setup';
 import institutionRouter from './api/institutions/router';
+import { ErrorHandler } from './middleware';
 
 dotenv.config();
 const app: Application = express();
@@ -23,6 +24,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api/v1/institutions', institutionRouter);
+// @ts-ignore
+app.use(ErrorHandler);
 
 const { PORT } = process.env;
 

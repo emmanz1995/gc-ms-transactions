@@ -1,4 +1,5 @@
 import { goCardless } from '../../connector';
+import BadRequest from '../../errors/BadRequest';
 
 class InstitutionsDBStore {
   public institutions: any;
@@ -9,6 +10,8 @@ class InstitutionsDBStore {
   async syncInstitutions(country: string): Promise<void> {
     let response;
     let { access: access_token } = await goCardless.retrieveAccessToken();
+
+    if (!country) throw new BadRequest('Country is required');
 
     try {
       response = await goCardless.institutionsLookup(country, access_token);
@@ -24,7 +27,8 @@ class InstitutionsDBStore {
       ) {
         console.log('Failed to get institutions', err.message);
       }
-      throw err;
+      // @ts-ignore
+      throw new Error(err.message);
     }
   }
 
@@ -33,6 +37,7 @@ class InstitutionsDBStore {
     limit: any;
   }): Promise<object> {
     let response: object;
+
     try {
       response = await this.institutions.getList(payload);
     } catch (err: unknown) {
@@ -44,16 +49,17 @@ class InstitutionsDBStore {
       ) {
         console.log('Failed to get institutions', err.message);
       }
-      throw err;
+      // @ts-ignore
+      throw new Error(err.message);
     }
 
     return response;
   }
-  async searchInstitutionByName(
-    text: any,
-  ): Promise<object[] | any> {
+  async searchInstitutionByName(text: any): Promise<object[] | any> {
     let response: object;
-    
+
+    if (!text) throw new BadRequest('Text is required');
+
     try {
       response = await this.institutions.searchByName(text);
     } catch (err: unknown) {
@@ -65,7 +71,8 @@ class InstitutionsDBStore {
       ) {
         console.log('Failed to search for institutions:', err);
       }
-      throw err;
+      // @ts-ignore
+      throw new Error(err.message);
     }
     return response;
   }

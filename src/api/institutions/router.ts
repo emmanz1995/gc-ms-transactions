@@ -13,9 +13,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     await service.syncInstitutions(country);
     res.status(202).send({ message: 'Institutions successfully Synced' });
   } catch (err: any) {
-    console.log(err.message);
-    // next(err);
-    res.status(500).json({ msg: err.message });
+    next(err);
   }
 });
 
@@ -26,10 +24,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     const skip = (page - 1) * limit;
 
     const totalInstitutions: any = (await institutions.find()).length;
-    console.log('...totalInstitutions:', totalInstitutions);
-
     const totalPages = Math.ceil(totalInstitutions / +limit);
-    console.log('...totalPages:', totalPages);
 
     const response = await service.institutionsMappings({
       skip,
@@ -43,14 +38,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
       message: 'Institutions successfully fetched',
     });
   } catch (err: unknown) {
-    if (
-      typeof err === 'object' &&
-      err &&
-      'message' in err &&
-      typeof err.message === 'string'
-    ) {
-      res.status(500).json({ msg: err.message });
-    }
+    next(err);
   }
 });
 
@@ -60,12 +48,10 @@ router.get(
     const text = req.query.text;
 
     try {
-      const response = await service.searchInstitutionByName(
-        text
-      );
+      const response = await service.searchInstitutionByName(text);
       res.status(200).send(response);
     } catch (err: any) {
-      res.status(500).send({ msg: err.message });
+      next(err);
     }
   }
 );
