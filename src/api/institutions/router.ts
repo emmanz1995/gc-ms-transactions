@@ -42,10 +42,10 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.get(
+router.post(
   '/search',
   async (req: Request, res: Response, next: NextFunction) => {
-    const text = req.query.text;
+    const { text } = req.body;
 
     try {
       const response = await service.searchInstitutionByName(text);

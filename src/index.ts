@@ -12,7 +12,7 @@ const app: Application = express();
 mongoSetup();
 
 const origins: object = {
-  url: 'http://localhost:8082',
+  url: 'http://localhost:5173',
 };
 
 app.use(cors(origins));
